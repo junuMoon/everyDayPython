@@ -15,8 +15,7 @@ def convert_date(date_text):
 
 
 def parse_location(location_text):
-    """ 
-    parse location in Born information
+    """ parse location in Born information
     This simply remove "in" in string.
     You can further parse city, state, country, etc.
     """
