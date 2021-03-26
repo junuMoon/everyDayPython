@@ -20,3 +20,13 @@ get a bit of python everyday
 
 ---
 
+### Dynamic Scrapy
+
+- 2021.03.26
+- how to scrape dynamic web page
+- CDN
+- Proxy
+
+---
+
+### Django 
