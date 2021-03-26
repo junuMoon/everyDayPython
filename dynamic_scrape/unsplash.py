@@ -8,6 +8,10 @@ class Unsplash:
         self.max_page = max_page
         self.per_page = per_page
         self.quality = quality
+        self.headers ={
+            "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv::80.0) Gecko/20100101 Firefox/80.0"
+        }
 
     def set_url(self, page):
         """compose url with fstring"""
@@ -15,7 +19,7 @@ class Unsplash:
 
     def make_request(self, page):
         url = self.set_url(page)
-        response = requests.request("GET", url)
+        response = requests.request("GET", url, headers=self.headers)
         if response.status_code == 200:
             print(f"page {page} is being crawled.")
             return response
@@ -36,11 +40,11 @@ class Unsplash:
 
     def download(self, img_url, img_id):
         filepath = self.save_path(img_id)
-        content = requests.request("GET", img_url).content
+        content = requests.request("GET", img_url, headers=self.headers).content
         with open(filepath, "wb") as f:
             f.write(content)
 
-    def run_scrapper(self):
+    def run_scraper(self):
         for page in range(1, self.max_page+1):
             data = self.get_data(page)
 
@@ -50,5 +54,6 @@ class Unsplash:
                 self.download(img_url, img_id)
 
 
-scrapper = Unsplash("cars", 5)
-scrapper.run_scrapper()
+if __name__ == '__main__':
+    scrapper = Unsplash("cars", 5)
+    scrapper.run_scraper()
