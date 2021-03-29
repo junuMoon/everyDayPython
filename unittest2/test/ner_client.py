@@ -1,3 +1,5 @@
+# TODO: ner model import
+
 class NerClient:
     def __init__(self):
         pass
