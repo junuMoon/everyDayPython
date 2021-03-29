@@ -9,3 +9,15 @@ class TestNerClient(unittest.TestCase):
         sent = ''
         ents = model.get_ents(sent)
         self.assertIsNotNone(ents)
+
+    def test_ner_clinet_returns_entities_dictionary_given_nonempty_sent(self):
+        model = NerClient()
+        sent = 'Franco lives in Madrid.'
+        ents = model.get_ents(sent)
+        expected_result = {
+            'ents': [
+                {'Franco': 'Person'},
+                {'Madrid': 'Location'}
+            ]
+        }
+        self.assertEqual(ents, expected_result)
