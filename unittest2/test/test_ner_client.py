@@ -37,5 +37,11 @@ class TestNerClient(unittest.TestCase):
         ]
         self.assertEqual(ents, expected_result)
 
+    def test_spacy_ner_model_returns_list_given_nonempty_entity_sent(self):
+        model = NerClient()
+        sent = 'Franco is a good person.'
+        ents = model.get_ents_by_ner_model(sent)
+        self.assertIsInstance(ents, list)
+
 
 

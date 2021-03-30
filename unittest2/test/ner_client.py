@@ -1,13 +1,19 @@
 import re
+import spacy
 
 
 class NerClient:
 
     def __init__(self):
+        self.ner_model = spacy.load("en_core_web_sm")
         self.model = {
             'Franco': 'Person',
             'Madrid': 'Location'
         }
+
+    def get_ents_by_ner_model(self, sent):
+        doc = self.ner_model(sent)
+        return doc
 
     def get_ents(self, sent):
         sent = self.sent_cleaning(sent)
