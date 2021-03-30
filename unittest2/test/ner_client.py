@@ -10,10 +10,17 @@ class NerClient:
             'Franco': 'Person',
             'Madrid': 'Location'
         }
+        self.label_map = {
+            'PERSON': 'Person'
+        }
 
     def get_ents_by_ner_model(self, sent):
         doc = self.ner_model(sent)
-        return doc
+        ents = []
+        for ent in doc.ents:
+            ents.append({ent.text: self.label_map.get(ent.label_)})
+
+        return ents
 
     def get_ents(self, sent):
         sent = self.sent_cleaning(sent)
@@ -21,7 +28,7 @@ class NerClient:
         ents = []
         for word in words:
             if word in self.model.keys():
-                ents.append({word: self.model[word]})
+                ents.append({word: self.model.get(word)})
         return ents
 
     @staticmethod
