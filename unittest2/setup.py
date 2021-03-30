@@ -1,7 +1,8 @@
-from setuptools import setup, find_packages
+from distutils.core import setup
+from setuptools import find_packages
 
 setup(
-    name='Flask-ner',
+    name='Flask_ner',
     version='0.0.1',
     description='flask app with ner model'
 )
