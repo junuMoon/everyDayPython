@@ -3,7 +3,7 @@
         <title>Named Entity Recognition</title>
     </head>
     <body>
-        <form action="" id="input_form" data-test-id="input_form">
+        <form action="/ner" id="input_form" data-test-id="input_form" method="post">
             <div>
                 <input type="text" id="input_sent" data-test-id="input_sent">
             </div>
@@ -17,6 +17,10 @@
                 <th>Label</th>
             </thead>
             <tbody>
+                {% if data %}
+                    <tr> {{ data }} </tr>
+                    <tr> {{ data }} </tr>
+                {% endif %}
             </tbody>
         </table>
     </body>

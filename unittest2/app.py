@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from ner_client import NerClient
-import json
 
 app = Flask(__name__)
 
@@ -13,15 +12,12 @@ def home():
 @app.route('/ner', methods=['POST'])
 def ner():
     try:
-        data = json.loads(request.get_data())
-        if len(data) == 0:
-            return ""
-        else:
-            return data.get('data')
+        sent = request.get_json().get('sentence')
+        model = NerClient()
+        ents = model.get_ents(sent)
+        return ents
     except Exception:
         return ""
-
-
 
 
 if __name__ == "__main__":

@@ -18,4 +18,4 @@ class NerClient:
         for ent in doc.ents:
             ents.append({ent.text: self.label_map.get(ent.label_)})
 
-        return ents
+        return {'ents': ents}
