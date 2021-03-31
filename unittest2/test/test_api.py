@@ -1,5 +1,6 @@
 import unittest
 import json
+from flask import Request
 from app import app
 
 
@@ -37,3 +38,19 @@ class TestAPI(unittest.TestCase):
             self.assertEqual(data, expected_result)
 
 
+    # def test_home_return_200_from_request_with_json(self):
+    #     with app.test_client() as client:
+    #         data = {'ents':[
+    #             {'Kim': 'Person'},
+    #             {'Madrid': 'Location'}
+    #         ]}
+    #         response = client.get('/', json=data)
+    #
+    #         assert response.status_code == 200
+
+    # def test_home_return_json_from_get_request_of_ner_route(self):
+    #     with app.test_client() as client:
+    #         data = {'ents':[
+    #             {'Kim': 'Person'},
+    #             {'Madrid': 'Location'}
+    #         ]}

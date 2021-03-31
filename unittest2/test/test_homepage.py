@@ -33,7 +33,7 @@ class TestHomePage(unittest.TestCase):
     def test_app_submit_button_send_request_to_ner_endpoint(self):
         input_sent = self.driver.find_element_by_css_selector('[data-test-id=input_sent]')
         submit_btn = self.driver.find_element_by_css_selector('[data-test-id=submit_btn]')
-        input_sent.send_keys("{'data': 'sample'}")
+        input_sent.send_keys("Kim lives in Madrid.")
         submit_btn.click()
         self.driver.implicitly_wait(3)
         page = self.driver.find_element_by_
