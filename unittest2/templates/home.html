@@ -19,14 +19,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% if ents %}
-                    {% for ent in ents %}
-                        <tr>
-                            <td>{{ ent['entity'] }}</td>
-                            <td>{{ ent['label'] }}</td>
-                        </tr>
-                    {% endfor%}
-                {% endif %}
+            {% if ents %}
+            {% for ent in ents %}
+                <tr>
+                    <td>{{ ent['entity'] }}</td>
+                    <td>{{ ent['label'] }}</td>
+                </tr>
+            {% endfor%}
+            {% endif %}
             </tbody>
         </table>
     </body>

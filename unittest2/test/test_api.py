@@ -1,56 +1,36 @@
 import unittest
-import json
-from flask import Request
+from flask import template_rendered, request
+from contextlib import contextmanager
 from app import app
+
+
+@contextmanager
+def captured_templates(app):
+    recorded = []
+    def record(sender, template, context, **extra):
+        recorded.append((template, context))
+    template_rendered.connect(record, app)
+    try:
+        yield recorded
+    finally:
+        template_rendered.disconnect(record, app)
 
 
 class TestAPI(unittest.TestCase):
 
-    def test_ner_endpoint_returns_200(self):
-        with app.test_client() as client:
-            response = client.post('ner')
-            assert response.status_code == 200
+    def setUp(self):
+        self.test_app = app.test_client()
 
-    def test_ner_endpoint_returns_200_given_data(self):
-        with app.test_client() as client:
-            data = {'data': 'sample'}
-            response = client.post('ner', json=data)
-            assert response.status_code == 200
+    def test_ner_endpoint_returns_200_to_get_request(self):
+        response = self.test_app.get('/')
+        assert response.status_code == 200
 
-    def test_ner_endpoint_return_json_from_post_with_json(self):
-        with app.test_client() as client:
-            data = {'data': 'sample'}
-            response = client.post('ner', json=data)
-            return_data = response.get_data().decode('ascii')
-            return_data = json.loads(return_data)
-            self.assertEqual(return_data.get('data'), 'sample')
+    def test_ner_endpoint_returns_200_to_post_request_with_form_content_type_given_empty_sentence(self):
+        data = {'sentence': ''}
+        response = self.test_app.post('/', data=data, content_type="application/x-www-form-urlencoded")
+        assert response.status_code == 200
 
-    def test_ner_endpoint_nerModel_return_json(self):
-        with app.test_client() as client:
-            sent = 'Kim lives in Madrid.'
-            sent_dict = {'sentence': sent}
-            response = client.post('ner', json=sent_dict)
-            data = response.get_json().get('ents')
-            expected_result = [
-                {'Kim': 'Person'},
-                {'Madrid': 'Location'}
-            ]
-            self.assertEqual(data, expected_result)
-
-
-    # def test_home_return_200_from_request_with_json(self):
-    #     with app.test_client() as client:
-    #         data = {'ents':[
-    #             {'Kim': 'Person'},
-    #             {'Madrid': 'Location'}
-    #         ]}
-    #         response = client.get('/', json=data)
-    #
-    #         assert response.status_code == 200
-
-    # def test_home_return_json_from_get_request_of_ner_route(self):
-    #     with app.test_client() as client:
-    #         data = {'ents':[
-    #             {'Kim': 'Person'},
-    #             {'Madrid': 'Location'}
-    #         ]}
+    def test_ner_endpoint_returns_200_to_post_request_with_form_content_type_given_nonempty_sentence(self):
+        data = {'sentence': 'Kim lives in Madrid'}
+        response = self.test_app.post('/', data=data, content_type="application/x-www-form-urlencoded")
+        assert response.status_code == 200
