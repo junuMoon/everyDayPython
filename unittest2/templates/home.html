@@ -13,18 +13,21 @@
         </form>
         <table id="entity_tbl" data-test-id="entity_tbl">
             <thead>
-                <th>Entity</th>
-                <th>Label</th>
+                <tr>
+                    <th>Entity</th>
+                    <th>Label</th>
+                </tr>
             </thead>
             <tbody>
+                {% if ents %}
+                    {% for ent in ents %}
+                        <tr>
+                            <td>{{ ent['entity'] }}</td>
+                            <td>{{ ent['label'] }}</td>
+                        </tr>
+                    {% endfor%}
+                {% endif %}
             </tbody>
-        <div>
-            <p>
-            {% if data %}
-                {{ data }}
-            {% endif %}
-            </p>
-        </div>
         </table>
     </body>
 </html>

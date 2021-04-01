@@ -17,8 +17,8 @@ def ner():
             return render_template('home.html')
         else:
             model = NerClient()
-            ents = model.get_ents(sent)
-            return render_template('home.html', data=ents)
+            ents = model.get_ents(sent)['ents']
+            return render_template('home.html', ents=ents)
     except Exception:
         abort(404)
         return ""

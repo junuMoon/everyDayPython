@@ -36,6 +36,8 @@ class TestHomePage(unittest.TestCase):
         input_sent.send_keys("Kim lives in Madrid.")
         submit_btn.click()
         self.driver.implicitly_wait(3)
-        p_obj = self.driver.find_element_by_tag_name('p')
-        self.assertIsNotNone(p_obj.text)
+        table_body = self.driver.find_element_by_css_selector('[data-test-id=entity_tbl] > tbody')
+        table_rows = table_body.find_elements_by_tag_name('tr')
+
+        self.assertEqual(table_rows[0].find_element_by_tag_name('td').text, 'Kim')
 

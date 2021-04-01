@@ -16,6 +16,6 @@ class NerClient:
         doc = self.model(sent)
         ents = []
         for ent in doc.ents:
-            ents.append({ent.text: self.label_map.get(ent.label_)})
-
+            ents.append({'entity': ent.text,
+                         'label': self.label_map.get(ent.label_)})
         return {'ents': ents}
