@@ -36,5 +36,6 @@ class TestHomePage(unittest.TestCase):
         input_sent.send_keys("Kim lives in Madrid.")
         submit_btn.click()
         self.driver.implicitly_wait(3)
-        page = self.driver.find_element_by_
+        p_obj = self.driver.find_element_by_tag_name('p')
+        self.assertIsNotNone(p_obj.text)
 
