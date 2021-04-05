@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, abort, make_response
 from ner_client import NerClient
-import uuid
+import json
 
 app = Flask(__name__)
 app.secret_key = 'double'
@@ -18,9 +18,10 @@ def index():
 @app.route('/ner', methods=["POST"])
 def ner():
     try:
-        sent = request.form['sentence']
-        ents = model.get_ents(sent)['ents']
-        return render_template('home.html', ents=ents)
+        data = request.get_json()
+        ents = model.get_ents(data['sentence'])['ents']
+        return json.dumps(ents)
+        # return render_template('home.html', ents=ents)
     except Exception:
         abort(404)
         return ""
