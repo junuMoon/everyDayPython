@@ -1,22 +1,30 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, make_response
 from ner_client import NerClient
+import json
 
 app = Flask(__name__)
+app.secret_key = 'double'
+model = NerClient()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
+def index():
+    response = make_response(render_template('home.html'))
+    # userId = {'userId': 'fakeID'}
+    response.set_cookie('userID', 'fakeID')
+    return response
+
+
+@app.route('/ner', methods=["POST"])
 def ner():
-    if request.method == 'GET':
-        return render_template('home.html')
-    if request.method == 'POST':
-        try:
-            sent = request.form['sentence']
-            model = NerClient()
-            ents = model.get_ents(sent)['ents']
-            return render_template('home.html', ents=ents)
-        except Exception:
-            abort(404)
-            return ""
+    try:
+        data = request.get_json()
+        ents = model.get_ents(data['sentence'])['ents']
+        return json.dumps(ents)
+        # return render_template('home.html', ents=ents)
+    except Exception:
+        abort(404)
+        return ""
 
 
 if __name__ == "__main__":
