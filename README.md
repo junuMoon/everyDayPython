@@ -59,6 +59,8 @@ get a bit of python everyday
 
 - 2021.04.04-
 - First Class Object
+- Closure
+- [Decorator](https://www.youtube.com/watch?v=FsAPt_9Bf3U): Wow now I can decorate my decorators while I'm using my decorated functions
 
 ---
 
