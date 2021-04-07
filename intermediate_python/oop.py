@@ -14,6 +14,18 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.RAISE_AMT)
         
+    def __repr__(self):  # Magic Method
+        return f"Employee('{self.first}', '{self.last}', '{self.pay}')"
+    
+    def __str__(self):
+        return f"{self.fullname()} - {self.email}"
+    
+    def __add__(self, other):
+        return self.pay + other.pay
+    
+    def __len__(self):
+        return self.fullname().__len__()
+        
     @classmethod
     def set_raise_amt(cls, amount):
         cls.RAISE_AMT = amount
@@ -69,21 +81,21 @@ dev_2 = Developer('Junu', 'Moon', 60000, 'JavaScript')
 
 mgr_1 = Manager('David', 'Copher', 70000, [dev_1])
 
-# print(isinstance(mgr_1, Manager))
-# print(isinstance(mgr_1, Employee))
-# print(isinstance(mgr_1, Developer))
+# print(dev_1)
 
-print(issubclass(Developer, Employee))
-print(issubclass(Manager, Employee))
-print(issubclass(Manager, Developer))
+# print(repr(dev_1))
+# print(str(dev_1))
 
-# print(mgr_1.email)
+# print(dev_1.__repr__())
+# print(dev_1.__str__())
 
-# mgr_1.add_emp(dev_2)
+# print(1+2)
 
-# mgr_1.print_emps()
+# print(int.__add__(1, 2))
+# print(str.__add__('a', 'b'))
 
-# print(dev_1.email)
-# print(dev_1.prog_lang)
-# dev_1.apply_raise()
-# print(dev_1.pay)
+# print(dev_1 + mgr_1)
+
+# print('test'.__len__())
+# print(dev_1.__len__())
+
