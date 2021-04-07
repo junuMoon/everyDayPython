@@ -2,17 +2,34 @@ class Employee:
     
     RAISE_AMT = 1.04
     
-    def __init__(self, first, last, pay):
+    def __init__(self, first, last, pay=0):
         self.first = first
         self.last = last
         self.pay = pay
-        self.email = f'{self.first}.{self.last}@email.com'
-        
+    
+    @property
+    def email(self):
+        return f'{self.first}.{self.last}@email.com'
+    
+    @property
     def fullname(self):
         return f'{self.first} {self.last}'
     
+    @fullname.setter
+    def fullname(self, name):
+        first, last = name.split(' ')
+        self.first = first
+        self.last = last
+        
+    @fullname.deleter
+    def fullname(self, name):
+        print('Delete Name!')
+        self.first = None
+        self.last = None
+        
+    
     def apply_raise(self):
-        self.pay = int(self.pay * self.RAISE_AMT)
+        self.pay = int(self.pay * self.RAISE_AMT) 
         
     def __repr__(self):  # Magic Method
         return f"Employee('{self.first}', '{self.last}', '{self.pay}')"
@@ -80,6 +97,17 @@ dev_1 = Developer('Corey', 'Schafer', 50000, 'python')
 dev_2 = Developer('Junu', 'Moon', 60000, 'JavaScript')
 
 mgr_1 = Manager('David', 'Copher', 70000, [dev_1])
+
+emp_1 = Employee('John', 'Smith')
+print(emp_1.fullname)
+
+emp_1.first = "Jin"
+emp_1.fullname = 'Corey Schcafer'
+
+print(emp_1.fullname)
+print(emp_1.email)
+print(emp_1.pay)
+
 
 # print(dev_1)
 
