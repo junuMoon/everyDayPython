@@ -29,4 +29,6 @@ get a bit of python everyday
 
 ---
 
-### Django 
+### Intermediate Python
+
+- Iterator: object with a state so that where it's at during its iteration.
