@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+sales list
+{% endblock title %}
+
+{% block content %}
+<h2>sales list</h2>
+<br>
+
+{% for sale in sales %}
+    <a href="{{ sale.get_absolute_url }}">{{ sale.transaction_id }}</a>
+{% endfor %}
+
+{% endblock content %}
