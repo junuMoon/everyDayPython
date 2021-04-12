@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from sales.models import Sale
+from sales.forms import SalesSearchForm
 
 # Create your views here.
 
 def home_view(request):
-    hello = 'hello world from the view'
-    return render(request, template_name='sales/home.html', context={'hello': hello})
+    form = SalesSearchForm(request.POST or None)
+    
+    if request.method == 'POST':
+        date_from = request.POST.get('date_from')
+        date_to = request.POST.get('date_to')
+        chart_type = request.POST.get('chart_type')
+        print(date_from, date_to, chart_type)
+    context = {
+        'form': form
+    }
+    return render(request, template_name='sales/home.html', context=context)
 
 class SaleListView(ListView):
     model = Sale
@@ -15,7 +25,7 @@ class SaleListView(ListView):
 
 # def sale_list_view(request):
 #     qs = Sale.objects.all()
-#     return render(request, 'sales/main.html', {'objecdt_list':qs})
+#     return render(request, 'sales/main.html', {'object_list':qs})
 
 # class SaleDetailView(DetailView):
 #     model = Sale
