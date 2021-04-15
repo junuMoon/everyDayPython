@@ -9,8 +9,8 @@ sales list
 <br>
 
 {% for sale in sales %}
-<div class="car mb-3">
-    <a href="{{ url 'sales:detail' sale.pk }}" class="card-body">{{ sale.transaction_id }}</a>
+<div class="card mb-3">
+    <a href="{{ sale.get_absolute_url }}" class="card-body">{{ sale.transaction_id }}</a>
 </div>
 {% endfor %}
 
