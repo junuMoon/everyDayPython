@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from sales.models import Sale
 from sales.forms import SalesSearchForm
+from reports.forms import ReportForm
 import pandas as pd
-from .utils import get_customer_from_id, get_salesman_from_id
+from .utils import get_customer_from_id, get_salesman_from_id, get_chart
 
 
 def home_view(request):
@@ -11,13 +12,16 @@ def home_view(request):
     positions_df = None
     merged_df = None
     df = None
-    form = SalesSearchForm(request.POST or None)
+    chart = None
+    no_data = None
+    search_form = SalesSearchForm(request.POST or None)
+    report_from = ReportForm()
     
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
-        # print(date_from, date_to, chart_type)
+        results_by = request.POST.get('results_by')
         
         sale_qs = Sale.objects.filter(
             created__date__lte=date_to,
@@ -50,7 +54,9 @@ def home_view(request):
             positions_df = pd.DataFrame(positions_data)
             merged_df = pd.merge(sales_df, positions_df, on='sales_id')
             
-            df = merged_df.groupby('transaction_id', as_index=True)['price'].agg('sum').to_frame()
+            df = merged_df.groupby('transaction_id', as_index=False)['price'].agg('sum')
+            
+            chart = get_chart(chart_type, sales_df, results_by)
             
             sales_df = sales_df.to_html()
             positions_df = positions_df.to_html()
@@ -58,14 +64,17 @@ def home_view(request):
             df = df.to_html()
 
         else:
-            print('no data')
+            no_data = 'No data is available in this date range'
 
     context = {
-        'form': form,
+        'search_form': search_form,
+        'report_form': report_from,
         'sales_df': sales_df,
         'positions_df': positions_df,
         'merged_df': merged_df,
-        'df': df
+        'df': df,
+        'chart': chart,
+        'no_data': no_data,
     }
     return render(request, template_name='sales/home.html', context=context)
 
