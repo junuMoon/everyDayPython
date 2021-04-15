@@ -95,3 +95,10 @@ get a bit of python everyday
 - It's whole different language compared to python!
   - very flowy, I think.
 
+---
+
+[Django Report Proejct](https://www.youtube.com/watch?v=tLq20htu3ss&t=11299s)
+
+- [MetaClass](https://tech.ssut.me/understanding-python-metaclasses/): 필요한 사람은 이게 진짜로 필요하다고 알고 있으면서, 왜 필요한지에 대해 설명할 필요가 없는 사람들입니다.)
+- 
+
