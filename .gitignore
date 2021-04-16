@@ -2,7 +2,10 @@ __pycache__
 .DS_store
 venv
 *.log
-.idea
+*.idea
 db.sqlite3
 *.jpg
-.egg-info
+*.egg-info
+*.png
+*.python-version
+settings.json
