@@ -9,6 +9,9 @@ class Blockchain(object):
         self.chain = []
         self.current_transactions = []
         
+        # Create the genesis block
+        self.new_block(previous_hash=1, proof=100)
+        
     def new_block(self, proof, previous_hash=None):
         # Creates a new Block and adds it to the chain
         """
@@ -49,7 +52,7 @@ class Blockchain(object):
             'amount': amount,
         })
         
-        return self.last_block['index'] +1
+        return self.last_block['index'] + 1
     
     def proof_of_work(self, last_proof):
         """Simple Proof of Work Algorithm:
@@ -100,5 +103,3 @@ class Blockchain(object):
     def last_block(self):
         # Returns the las block in the chain
         return self.chain[-1]
-    
-    
