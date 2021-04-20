@@ -1,10 +1,21 @@
 from django.shortcuts import render
 from profiles.models import Profile
 from reports.models import Report
+from django.contrib.auth.models import User
 from reports.forms import ReportForm
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from reports.utils import get_report_image
+from django.views.generic import ListView, DetailView
+
+
+class ReportListView(ListView):
+    model = Report
+    template_name = 'reports/main.html'
+    
+    
+class ReportDetailView(DetailView):
+    model = Report
+    template_name = 'reports/detail.html'
 
 
 # Create your views here.
