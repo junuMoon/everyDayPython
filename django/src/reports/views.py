@@ -11,11 +11,8 @@ from reports.utils import get_report_image
 def create_report_view(request):
     form = ReportForm(request.POST or None)
     if request.is_ajax():
-        # name = request.POST.get('name')
-        # remarks = request.POST.get('remarks')
         image = request.POST.get('image')
         img = get_report_image(image)
-        
         author_user = User.objects.get(username='test_user')
         author_profile = Profile.objects.get(user=author_user) #TODO: need proper user input
         
@@ -24,13 +21,6 @@ def create_report_view(request):
             instance.image = img
             instance.author = author_profile
         instance.save()
-        
-        # Report.objects.create(
-        #     name = name,
-        #     image = img,
-        #     remarks = remarks,
-        #     author = author_profile
-        # )
 
         return JsonResponse({'msg': 'success'})
     return JsonResponse({})
