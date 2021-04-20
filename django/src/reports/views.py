@@ -1,15 +1,21 @@
+from os import read
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 from django.views.generic import DetailView, ListView, TemplateView
 from profiles.models import Profile
+from django.utils.dateparse import parse_date
 
 from xhtml2pdf import pisa
+import csv
 
 from reports.forms import ReportForm
 from reports.models import Report
 from reports.utils import get_report_image
+
+from sales.models import Sale, Position, CSV
+from products.models import Product
 
 
 class ReportListView(ListView):
@@ -24,6 +30,25 @@ class UploadTemplateView(TemplateView):
     template_name = 'reports/from_file.html'
     
 def csv_upload_view(request):
+    if request.method == 'POST':
+        csv_file = request.FILES.get('file')
+        obj = CSV.objects.create(file_name=csv_file)
+        
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            reader.__next__() # skip the first row
+            for row in reader:
+                transaction_id = row[1]
+                product = row[2]
+                quantity = int(row[3])
+                customer = row[4]
+                date = parse_date(row[6])
+                
+                try:
+                    product_obj = Product.objects.get(name=product)
+                except Product.DoesNotExist:
+                    product_obj = None
+                
     return HttpResponse()
 
 # Create your views here.
@@ -61,7 +86,7 @@ def render_pdf_view(request, pk):
     # create a pdf
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-    # if error then show some funy view
+    # if error then show some funny view
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response

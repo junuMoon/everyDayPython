@@ -1,0 +1,10 @@
+Pos ,Transaction id ,Product  ,Quantity ,Customer       , Date
+1   ,E100           ,TV       ,1        ,test customer  , 2021-04-01
+2   ,E100           ,iPhone   ,2        ,test customer2 , 2021-04-04
+3   ,E200           ,TV       ,3        ,test customer  , 2021-04-01
+4   ,E200           ,Labtop   ,1        ,test customer  , 2021-04-08
+5   ,E200           ,iPhone   ,5        ,test customer3 , 2021-04-05
+6   ,E300           ,TV       ,2        ,test customer  , 2021-04-08
+7   ,E300           ,e-reader ,3        ,test customer  , 2021-04-02
+8   ,E300           ,iPhone   ,1        ,test customer2 , 2021-04-11
+9   ,E300           ,Labtop   ,2        ,new customer   , 2021-04-09
