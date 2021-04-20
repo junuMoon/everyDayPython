@@ -1,9 +1,6 @@
-from logging import debug
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template
 import uuid
-
-from flask.wrappers import Response
 
 from blockchain import Blockchain
 
@@ -16,6 +13,11 @@ node_identifier = str(uuid.uuid4()).replace('-', '')
 
 # Instantiate the Blockchain
 blockchain = Blockchain()
+
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('/home.html')
 
 
 @app.route('/mine', methods=['GET'])

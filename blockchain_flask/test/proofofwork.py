@@ -5,7 +5,7 @@ y = 0 # GOAL: discover Y
 
 while True:
     problem = sha256(f'{ x * y }'.encode()).hexdigest()
-    if problem[-2] != "0ß0":
+    if problem[-2] != "00":
         print(problem)
         y += 1
     else:
