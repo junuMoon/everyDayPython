@@ -15,7 +15,7 @@ def home_view(request):
     chart = None
     no_data = None
     search_form = SalesSearchForm(request.POST or None)
-    report_from = ReportForm()
+    report_form = ReportForm()
     
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
@@ -68,7 +68,7 @@ def home_view(request):
 
     context = {
         'search_form': search_form,
-        'report_form': report_from,
+        'report_form': report_form,
         'sales_df': sales_df,
         'positions_df': positions_df,
         'merged_df': merged_df,
