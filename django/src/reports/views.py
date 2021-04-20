@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from profiles.models import Profile
 
 from xhtml2pdf import pisa
@@ -15,12 +15,16 @@ from reports.utils import get_report_image
 class ReportListView(ListView):
     model = Report
     template_name = 'reports/main.html'
-    
-    
+        
 class ReportDetailView(DetailView):
     model = Report
     template_name = 'reports/detail.html'
 
+class UploadTemplateView(TemplateView):
+    template_name = 'reports/from_file.html'
+    
+def csv_upload_view(request):
+    return HttpResponse()
 
 # Create your views here.
 def create_report_view(request):
