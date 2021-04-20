@@ -5,9 +5,13 @@
 {% endblock title %}
 
 {% block content %}
-  {{ object.name }}
+  {% if object.image %}
+    <img src="{{object.image.url}}" class="img-fluid" alt="{{object.name}}">
+  {% endif %}
   <br>
-  {{ object.remarks }}
-  <br>
-  {{ object.image }}
+  <h3>Remarks</h3>
+  <p>{{object.remarks}}</p>
+  <hr>
+  <p>author: <b>{{object.author.user.username}}</b></p>
+  <p>created: {{object.created}}</p>
 {% endblock content %}

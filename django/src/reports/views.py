@@ -1,11 +1,15 @@
-from django.shortcuts import render
-from profiles.models import Profile
-from reports.models import Report
 from django.contrib.auth.models import User
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.template.loader import get_template
+from django.views.generic import DetailView, ListView
+from profiles.models import Profile
+
+from xhtml2pdf import pisa
+
 from reports.forms import ReportForm
-from django.http import JsonResponse
+from reports.models import Report
 from reports.utils import get_report_image
-from django.views.generic import ListView, DetailView
 
 
 class ReportListView(ListView):
@@ -36,6 +40,27 @@ def create_report_view(request):
         return JsonResponse({'msg': 'success'})
     return JsonResponse({})
         
+def render_pdf_view(request, pk):
+    template_path = 'reports/pdf.html'
+    obj = get_object_or_404(Report, pk=pk)
+    context = {'obj': obj}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    # if download
+    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # if display
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
         
 
         
