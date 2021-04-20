@@ -301,3 +301,4 @@ instance/*
 # ETC
 .idea
 *.jpg
+blockchain_flask/.vscode/settings.json
