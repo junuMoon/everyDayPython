@@ -9,6 +9,9 @@ const myDropzone = new Dropzone('#my-dropzone', {
             console.log('sending')
             formData.append('csrfmiddlewaretoken', csrf)
         })        
+        this.on('success', function(file, response){
+            console.log(response)
+        })
     },
     maxFiles: 3,
     maxFilesize: 3, // megabytes

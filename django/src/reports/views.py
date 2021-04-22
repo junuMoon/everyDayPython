@@ -37,42 +37,50 @@ class UploadTemplateView(TemplateView):
     
 def csv_upload_view(request):
     if request.method == 'POST':
+        csv_file_name = request.FILES.get('file').name
         csv_file = request.FILES.get('file')
-        obj = CSV.objects.create(file_name=csv_file)
+        obj, created = CSV.objects.get_or_create(file_name=csv_file_name)
         
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            reader.__next__() # skip the first row
-            for row in reader:
-                transaction_id = row[1].strip()
-                product = row[2].strip()
-                quantity = int(row[3])
-                customer = row[4].strip()
-                date = parse_date(row[5].strip())
-                date = datetime.combine(date, datetime.min.time())   
-                # date = timezone.make_aware(date)
-                # date = datetime.strptime(row[5].strip())
-                
-                try:
-                    product_obj = Product.objects.get(name__iexact=product)
-                except Product.DoesNotExist:
-                    product_obj = None
-                
-                if product_obj is not None:
-                    customer_obj, _ = Customer.objects.get_or_create(name=customer)  # return object, bool
-                    salesman = User.objects.get(username='test_user')
-                    salesman_obj = Profile.objects.get(user=salesman) #TODO: need proper user input
-                    position_obj, _ = Position.objects.get_or_create(product=product_obj,
-                                                                    quantity=quantity,
-                                                                    created=date)
-                    sale_obj, _ = Sale.objects.get_or_create(transaction_id=transaction_id,
-                                                             defaults={
-                                                                 'customer': customer_obj,
-                                                                 'salesman': salesman_obj,
-                                                                 'created': date})
-                    sale_obj.positions.add(position_obj)
-                    sale_obj.save()
+        if created:
+            obj.csv_file = csv_file
+            obj.save()
+            
+            with open(obj.csv_file .path, 'r') as f:
+                reader = csv.reader(f)
+                reader.__next__() # skip the first row
+                for row in reader:
+                    transaction_id = row[1].strip()
+                    product = row[2].strip()
+                    quantity = int(row[3])
+                    customer = row[4].strip()
+                    date = parse_date(row[5].strip())
+                    date = datetime.combine(date, datetime.min.time())   
+                    # date = timezone.make_aware(date)
+                    # date = datetime.strptime(row[5].strip())
                     
+                    try:
+                        product_obj = Product.objects.get(name__iexact=product)
+                    except Product.DoesNotExist:
+                        product_obj = None
+                    
+                    if product_obj is not None:
+                        customer_obj, _ = Customer.objects.get_or_create(name=customer)
+                        salesman = User.objects.get(username='test_user')
+                        salesman_obj = Profile.objects.get(user=salesman) #TODO: need proper user input
+                        position_obj, _ = Position.objects.get_or_create(product=product_obj,
+                                                                        quantity=quantity,
+                                                                        created=date)
+                        sale_obj, _ = Sale.objects.get_or_create(transaction_id=transaction_id,
+                                                                defaults={
+                                                                    'customer': customer_obj,
+                                                                    'salesman': salesman_obj,
+                                                                    'created': date})
+                        sale_obj.positions.add(position_obj)
+                        sale_obj.save()
+                        
+                        return JsonResponse({'ex': False})
+        else:
+            return JsonResponse({'ex': True})
     return HttpResponse()
 
 # Create your views here.

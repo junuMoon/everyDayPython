@@ -8,4 +8,4 @@ Pos ,Transaction id ,Product     ,Quantity ,Customer       , Date
 7   ,E300           ,e-reader    ,3        ,test customer  , 2021-04-02
 8   ,E300           ,iPhone      ,1        ,test customer2 , 2021-04-11
 9   ,E300           ,Labtop      ,2        ,new customer   , 2021-04-09
-10   ,E300           ,Smart Watch ,1        ,new customer   , 2021-04-07
+10   ,E300          ,Smart Watch ,1        ,new customer   , 2021-04-07

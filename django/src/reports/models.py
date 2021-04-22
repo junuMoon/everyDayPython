@@ -18,5 +18,5 @@ class Report(models.Model):
         return str(self.name)
     
     class Meta:
-        ordering = ('-created', )
+        ordering = ('created', )
     
