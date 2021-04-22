@@ -12,3 +12,9 @@
 .dz:hover {
     background-color: aliceblue;
 }
+
+.avatar-big{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
