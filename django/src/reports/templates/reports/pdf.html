@@ -14,7 +14,9 @@
 <body>
   <h1<{{obj.name}}<h1>
   <hr>
-  <img src="{{obj.image.path}}" class="image">
+  {% if obj.image %}
+    <img src="{{obj.image.path}}" class="image">
+  {% endif %}
   <br>
   <h3>Remarks</h3>
   <p>{{obj.remarks}}</p>
