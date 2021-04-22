@@ -65,8 +65,7 @@ def csv_upload_view(request):
                     
                     if product_obj is not None:
                         customer_obj, _ = Customer.objects.get_or_create(name=customer)
-                        salesman = User.objects.get(username='test_user')
-                        salesman_obj = Profile.objects.get(user=salesman) #TODO: need proper user input
+                        salesman_obj = Profile.objects.get(user=request.user)
                         position_obj, _ = Position.objects.get_or_create(product=product_obj,
                                                                         quantity=quantity,
                                                                         created=date)
@@ -89,8 +88,7 @@ def create_report_view(request):
     if request.is_ajax():
         image = request.POST.get('image')
         img = get_report_image(image)
-        author_user = User.objects.get(username='test_user')
-        author_profile = Profile.objects.get(user=author_user) #TODO: need proper user input
+        author_profile = Profile.objects.get(user=request.user)
         
         if form.is_valid():
             instance = form.save(commit=False)

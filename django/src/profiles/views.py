@@ -5,7 +5,6 @@ from profiles.forms import ProfileForm
 # Create your views here.
 
 def my_profile_view(request):
-    # profile = Profile.objects.get(user=User.objects.get(username='test_user'))  # TODO: set user for request
     profile = Profile.objects.get(user=request.user) 
     print(request.POST)
     print(request.FILES)
