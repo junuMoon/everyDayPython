@@ -19,22 +19,22 @@ from reports.forms import ReportForm
 from reports.models import Report
 from reports.utils import get_report_image
 
-# from datetime import datetime
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
-
-class ReportListView(ListView):
+class ReportListView(LoginRequiredMixin, ListView):
     model = Report
     template_name = 'reports/main.html'
         
-class ReportDetailView(DetailView):
+class ReportDetailView(LoginRequiredMixin,DetailView):
     model = Report
     template_name = 'reports/detail.html'
 
-class UploadTemplateView(TemplateView):
+class UploadTemplateView(LoginRequiredMixin,TemplateView):
     template_name = 'reports/from_file.html'
-    
+
+@login_required
 def csv_upload_view(request):
     if request.method == 'POST':
         csv_file_name = request.FILES.get('file').name
@@ -55,8 +55,6 @@ def csv_upload_view(request):
                     customer = row[4].strip()
                     date = parse_date(row[5].strip())
                     date = datetime.combine(date, datetime.min.time())   
-                    # date = timezone.make_aware(date)
-                    # date = datetime.strptime(row[5].strip())
                     
                     try:
                         product_obj = Product.objects.get(name__iexact=product)
@@ -82,7 +80,7 @@ def csv_upload_view(request):
             return JsonResponse({'ex': True})
     return HttpResponse()
 
-# Create your views here.
+@login_required
 def create_report_view(request):
     form = ReportForm(request.POST or None)
     if request.is_ajax():
@@ -99,6 +97,7 @@ def create_report_view(request):
         return JsonResponse({'msg': 'success'})
     return JsonResponse({})
         
+@login_required
 def render_pdf_view(request, pk):
     template_path = 'reports/pdf.html'
     obj = get_object_or_404(Report, pk=pk)
@@ -111,7 +110,7 @@ def render_pdf_view(request, pk):
     response['Content-Disposition'] = 'filename="report.pdf"'
     # find the template and render it.
     template = get_template(template_path)
-    html = template.render(context)
+    html = template.render(context) #FIXME: error occured
 
     # create a pdf
     pisa_status = pisa.CreatePDF(

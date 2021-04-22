@@ -1,12 +1,16 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from sales.models import Sale
-from sales.forms import SalesSearchForm
-from reports.forms import ReportForm
 import pandas as pd
-from .utils import get_customer_from_id, get_salesman_from_id, get_chart
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
+from django.views.generic import DetailView, ListView
+from reports.forms import ReportForm
+
+from sales.forms import SalesSearchForm
+from sales.models import Sale
+from sales.utils import get_chart, get_customer_from_id, get_salesman_from_id
 
 
+@login_required
 def home_view(request):
     sales_df = None
     positions_df = None
@@ -78,7 +82,7 @@ def home_view(request):
     }
     return render(request, template_name='sales/home.html', context=context)
 
-class SaleListView(ListView):
+class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/main.html'
     context_object_name = 'sales'  # replace object_list
@@ -90,7 +94,8 @@ class SaleListView(ListView):
 # class SaleDetailView(DetailView):
 #     model = Sale
 #     template_name = 'sales/detail.html'
-    
+
+@login_required
 def sale_detail_view(request, **kwargs):
     pk = kwargs.get('pk')
     obj = Sale.objects.get(pk=pk)

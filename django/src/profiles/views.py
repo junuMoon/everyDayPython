@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from profiles.forms import ProfileForm
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def my_profile_view(request):
     profile = Profile.objects.get(user=request.user) 
     print(request.POST)
