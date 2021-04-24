@@ -1,9 +1,10 @@
-from sqlite3 import Connection as SQLite3Connection
 from datetime import datetime
-from sqlalchemy import event
-from sqlalchemy.engine import Engine
+from sqlite3 import Connection as SQLite3Connection
+
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
 
 # app
 app = Flask(__name__)
@@ -45,7 +46,16 @@ class BlogPost(db.Model):
 # routes
 @app.route("/user", methods=["POST"])
 def create_user():
-    pass
+    data = request.get_json()
+    new_user = User(
+        name = data["name"],
+        email = data["email"],
+        address = data["address"],
+        phone = data["phone"],
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "User created"}), 200
 
 @app.route("/user/descending_id", methods=["GET"])
 def get_all_user_descending():
