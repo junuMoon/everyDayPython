@@ -109,6 +109,7 @@ get a bit of python everyday
 
 ### [Data Structure in Flask API](https://www.youtube.com/watch?v=74NW-84BqbA)
 
+- 2021.04.24-2021.04.26
 - ORM: Object Relational Mapper
   - [SQLAlchemy](https://dongchans.github.io/2019/28/): sql문법을 전부 파이썬 객체로 맵핑하여 그냥 파이썬 객체의 인스턴스, 메소드를 통해서 구현할 수 있다면 훨씬 더 체계적이고 가독성이 좋을 것이다. 그러한 객체와 기능의 MAPPING을 바로 ORM이라고 한다.
 - route: A decorator that is used to register a *view function* for a given URL rule.
