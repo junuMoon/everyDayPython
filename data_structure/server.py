@@ -10,6 +10,7 @@ from sqlalchemy.engine import Engine
 import binary_search_tree
 import hash_table
 import linked_list
+import custom_queues
 
 # app
 app = Flask(__name__)
@@ -166,6 +167,38 @@ def get_post(blog_post_id):
     if not post:
         return jsonify({"message": "post not found"}), 400
     return jsonify(post)
+
+@app.route('/blog_post/numeric_body', methods=["GET"])
+def get_numeric_post_bodies():
+    posts = BlogPost.query.all()
+    
+    q = custom_queues.Queue()
+    
+    for post in posts:
+        q.enqueue(post)
+        
+    return_list = list()
+    
+    for _ in range(len(posts)):
+        post = q.dequeue()
+        numeric_body = 0
+        for char in post.data.body:
+            numeric_body += ord(char)
+            
+        post.data.body = numeric_body
+        
+        return_list.append(
+            {
+                "id": post.data.id,
+                "title": post.data.title,
+                "body": post.data.body,
+                "user_id": post.data.user_id,
+            }
+        )
+    
+    return jsonify(return_list)
+        
+    
 
 @app.route("/user/<user_id>", methods=["GET"])
 def get_all_posts(user_id):
