@@ -122,3 +122,9 @@ get a bit of python everyday
 - hash function: hash(key) -> index: every time enter Paul to my hash function it always return 3
 - [Hashing](https://www.freecodecamp.org/news/what-is-hashing/)means using some function or algorithm to map object data to some representative integer value.
 - Hashing is efficient to find or store an item in a collection.
+
+---
+### [Dokcer Tutorial](https://www.youtube.com/watch?v=fqMOX6JJhGo)
+
+- 2021.04.26-
+
