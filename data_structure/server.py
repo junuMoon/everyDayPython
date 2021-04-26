@@ -1,3 +1,4 @@
+from operator import pos
 import random
 from datetime import datetime
 from sqlite3 import Connection as SQLite3Connection
@@ -11,6 +12,7 @@ import binary_search_tree
 import hash_table
 import linked_list
 import custom_queues
+import stack
 
 # app
 app = Flask(__name__)
@@ -198,15 +200,22 @@ def get_numeric_post_bodies():
     
     return jsonify(return_list)
         
+
+@app.route("/blog_post/delete_last_10", methods=["DELETE"])
+def delete_last_10():
+    posts = BlogPost.query.all()
     
-
-@app.route("/user/<user_id>", methods=["GET"])
-def get_all_posts(user_id):
-    pass
-
-@app.route("/blog_post/<blog_post_id>", methods=["DELETE"])
-def delete_post(blog_post_id):
-    pass
+    s = stack.Stack()
+    
+    for post in posts:
+        s.push(post)
+        
+    for _ in range(10):
+        post_to_delete = s.pop()
+        db.session.delete(post_to_delete.data)
+    db.session.commit()
+        
+    return jsonify({"message": "recent 10 posts were delete."})
 
 if __name__ == "__main__":
     app.run(debug=True) 
