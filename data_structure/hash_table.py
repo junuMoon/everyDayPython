@@ -43,7 +43,7 @@ class HashTable:
                 return node.data.value
             node = node.next_node
         if key == node.data.key:
-            return node.data.key
+            return node.data.value
         raise AttributeError('No node with the key')
     
     def print_table(self):
