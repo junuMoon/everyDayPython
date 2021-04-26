@@ -94,7 +94,24 @@ def get_all_user_ascending():
 
 @app.route("/user/<user_id>", methods=["GET"])
 def get_one_user(user_id):
-    pass
+    users = User.query.all()
+    all_users_ll = linked_list.LinkedList()
+    for user in users:
+        all_users_ll.insert_beginning(
+            {
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "phone": user.phone,
+                "address": user.address,
+            }
+        )
+    try:
+        user = all_users_ll.get_user_by_id(user_id)
+        return jsonify(user), 200
+    except AttributeError as e:
+        return jsonify({'message': 'user not found'}), 500
+        
 
 @app.route("/user/<user_id>", methods=["DELETE"])
 def delete_user(user_id):
