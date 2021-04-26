@@ -147,10 +147,6 @@ def create_post(user_id):
     db.session.commit()
     return jsonify({'meesage': "a new post created"}), 200
 
-@app.route("/user/<user_id>", methods=["GET"])
-def get_all_posts(user_id):
-    pass
-
 @app.route("/blog_post/<blog_post_id>", methods=["GET"])
 def get_post(blog_post_id):
     blog_posts = BlogPost.query.all()
@@ -171,6 +167,9 @@ def get_post(blog_post_id):
         return jsonify({"message": "post not found"}), 400
     return jsonify(post)
 
+@app.route("/user/<user_id>", methods=["GET"])
+def get_all_posts(user_id):
+    pass
 
 @app.route("/blog_post/<blog_post_id>", methods=["DELETE"])
 def delete_post(blog_post_id):

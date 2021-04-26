@@ -53,13 +53,3 @@ class BinarySearchTree:
 #         depth_counter.depth += 1
 #         result = func(*args, **kwargs)
 #         return result
-    
-        
-        
-bst = BinarySearchTree()
-bst.insert({"id": 5})
-bst.insert({"id": 2})
-bst.insert({"id": 8})
-bst.insert({"id": 6})
-bst.insert({"id": 9})
-bst.insert({"id": 1})
