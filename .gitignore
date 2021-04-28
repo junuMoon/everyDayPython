@@ -1,3 +1,7 @@
+### Microservice ###
+.dbdata
+migrations/
+
 ### Django ###
 *.log
 *.pot
