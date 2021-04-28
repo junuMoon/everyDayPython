@@ -127,5 +127,20 @@ get a bit of python everyday
 ---
 ### [Dokcer Tutorial](https://www.youtube.com/watch?v=fqMOX6JJhGo)
 
-- 2021.04.26-
+- 2021.04.26-28
+- docker is awesome!
+  - why? I dunno yet!
+  - but awesome anyway!
+- docker container is upon OS and virtual machine is upon Infrastructure
+  - ![도커](https://images.contentstack.io/v3/assets/blt300387d93dabf50e/bltb6200bc085503718/5e1f209a63d1b6503160c6d5/containers-vs-virtual-machines.jpg)
+
+- Next step: Microservice using docker
+
+---
+
+### [Microservice](https://www.youtube.com/watch?v=0iB5IPoTDts&t=739s)
+
+- 2021.04.28-
+- **마이크로서비스**(microservice)는 애플리케이션을 [느슨하게 결합된](https://ko.wikipedia.org/wiki/결합) 서비스의 모임으로 구조화하는 [서비스 지향 아키텍처](https://ko.wikipedia.org/wiki/서비스_지향_아키텍처)(SOA) 스타일의 일종인 [소프트웨어 개발](https://ko.wikipedia.org/wiki/소프트웨어_개발) 기법이다. 마이크로서비스 아키텍처에서 서비스들은 [섬세](https://ko.wikipedia.org/w/index.php?title=서비스_입자성_원칙&action=edit&redlink=1)(fine-grained)하고 [프로토콜](https://ko.wikipedia.org/wiki/프로토콜)은 가벼운 편이다. 애플리케이션을 더 조그마한 여러 서비스로 분해할 때의 장점은 [모듈성](https://ko.wikipedia.org/wiki/모듈성_(프로그래밍))을 개선하고 애플리케이션의 이해, 개발, 테스트를 더 쉽게 해주고 애플리케이션 침식에 더 탄력적으로 만들어 준다.[[1\]](https://ko.wikipedia.org/wiki/마이크로서비스#cite_note-Micro_Chen-1) 규모가 작은 자율적인 팀들이 팀별 서비스를 독립적으로 개발, [전개](https://ko.wikipedia.org/wiki/소프트웨어_전개), 규모 확장을 할 수 있게 함으로써 병렬로 [개발](https://ko.wikipedia.org/wiki/소프트웨어_개발)할 수 있게 한다.[[2\]](https://ko.wikipedia.org/wiki/마이크로서비스#cite_note-2) 또, 지속적인 [리팩터링](https://ko.wikipedia.org/wiki/리팩터링)을 통해 개개의 서비스 아키텍처가 하나로 병합될 수 있게 허용한다.[[3\]](https://ko.wikipedia.org/wiki/마이크로서비스#cite_note-Ach_Chen-3) 마이크로서비스 기반 아키텍처는 [지속적 배포](https://ko.wikipedia.org/wiki/지속적_배포)와 전개(디플로이)를 가능케 한다.[[1\]](https://ko.wikipedia.org/wiki/마이크로서비스#cite_note-Micro_Chen-1)[[4\]](https://ko.wikipedia.org/wiki/마이크로서비스#cite_note-4)
+- 
 
