@@ -13,5 +13,16 @@
     docker run -v {host-directory-path}:{container-directory-path} \
     {docker_image_name:tag}
     ```
-    
-    
+
+### Docker compose
+
+- 여러 도커 컨테이너를 관리하기 쉽도록 만든 문법
+- 볼륨 설정
+  - ```bash
+  volumes:
+    - ./:/app
+    ```
+  
+  
+  
+

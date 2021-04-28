@@ -1,0 +1,14 @@
+<html>
+    <head>
+    <title>Spanish Dictionary</title>
+    </head>
+    <body>
+        <h1>Spanish Dictionary</h1>
+        <hr>
+        <ul>
+            {% for eng, spn in spanish_dictionary.items() %}
+                <li> {{eng}} = {{spn}} </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
