@@ -13,13 +13,13 @@ class ProductViewSet(viewsets.ViewSet):
     def list(self, request):  # route: /api/products
         product = Product.objects.all()
         serializer = ProductSerializer(product, many=True)
-        publish()
         return Response(serializer.data)
         
     def create(self, request): # route: /api/products
         serializer = ProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        publish('product_created', serializer.data)
         return Response(serializer.data, status=HTTP_201_CREATED)
     
     def retrieve(self, request, pk=None): # route: /api/products/<str:id>
@@ -34,11 +34,13 @@ class ProductViewSet(viewsets.ViewSet):
         serializer = ProductSerializer(instance=product, data=request.data)
         serializer.is_valid()
         serializer.save()
+        publish('product_updated', serializer.data)
         return Response(serializer.data, status=HTTP_202_ACCEPTED)
     
     def destroy(self, request, pk=None): # route: /api/products/<str:id>
         product = Product.objects.get(id=pk)
         product.delete()
+        publish('product_deleted', pk)
         return Response(data=HTTP_204_NO_CONTENT)
 
 
