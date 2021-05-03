@@ -4,6 +4,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_204_
 from rest_framework.views import APIView
 
 from .models import Product, User
+from .producer import publish
 from .serializers import ProductSerializer
 
 import random
@@ -11,8 +12,8 @@ import random
 class ProductViewSet(viewsets.ViewSet):
     def list(self, request):  # route: /api/products
         product = Product.objects.all()
-        print(type(product))
         serializer = ProductSerializer(product, many=True)
+        publish()
         return Response(serializer.data)
         
     def create(self, request): # route: /api/products
