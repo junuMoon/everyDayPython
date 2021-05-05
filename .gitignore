@@ -1,6 +1,9 @@
 ### Microservice ###
 .dbdata
 migrations/
+node_modules
+reac-crud
+*.json
 
 ### Django ###
 *.log
